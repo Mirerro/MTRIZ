@@ -2,8 +2,60 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+// Основний клас для запуску гри
+public class TicTacToeGame {
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
+        // Введення інформації про гравців
+        System.out.println("Введіть інформацію для першого гравця:");
+        Player player1 = new Player("", ' '); 
+        player1.inputInfo();
+
+        System.out.println("Введіть інформацію для другого гравця:");
+        Player player2 = new Player("", ' '); 
+        player2.inputInfo();
+
+        // Ігрове поле
+        TicTacToeBoard board = new TicTacToeBoard();
+        Player currentPlayer = player1;
+        boolean gameWon = false;
+
+        while (!board.isBoardFull()) {
+            board.displayBoard();
+            System.out.println(currentPlayer.getName() + " (" + currentPlayer.getSymbol() + ") робить хід.");
+
+            // Отримання ходу від поточного гравця
+            int[] move = currentPlayer.getMove();
+            boolean moveValid = board.updateBoard(move[0], move[1], currentPlayer.getSymbol());
+
+            if (!moveValid) {
+                System.out.println("Недійсний хід, спробуйте ще раз.");
+                continue;
+            }
+
+            // Перевірка на перемогу
+            if (board.checkWinner(currentPlayer.getSymbol())) {
+                board.displayBoard();
+                System.out.println("Вітаємо! " + currentPlayer.getName() + " виграв гру!");
+                gameWon = true;
+                break;
+            }
+
+            // Перемикання гравця
+            currentPlayer = (currentPlayer == player1) ? player2 : player1;
+        }
+
+        if (!gameWon) {
+            board.displayBoard();
+            System.out.println("Гра закінчилася нічиєю!");
+        }
+    }
+}
 // Клас, що описує гравця
 class Player {
+
     private String name;
     private char symbol;
 
@@ -13,13 +65,17 @@ class Player {
         this.symbol = symbol;
     }
 
+    public Player(String name) {
+        this.name = name;
+    }
+
     // Метод для отримання ходу гравця
     public int[] getMove() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         System.out.println(name + ", введіть рядок (1, 2 або 3): ");
-        int row = Integer.parseInt(reader.readLine());
+        int row = Integer.parseInt(reader.readLine()) - 1;  // Преобразуем в индексацию с 0
         System.out.println(name + ", введіть стовпчик (1, 2 або 3): ");
-        int col = Integer.parseInt(reader.readLine());
+        int col = Integer.parseInt(reader.readLine()) - 1;  // Преобразуем в индексацию с 0
         return new int[]{row, col};
     }
 
@@ -44,10 +100,15 @@ class Player {
     public char getSymbol() {
         return symbol;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }
 
 // Клас, що описує ігрове поле
 class TicTacToeBoard {
+
     private char[][] board;
 
     // Конструктор для створення пустого ігрового поля
@@ -116,56 +177,5 @@ class TicTacToeBoard {
             }
         }
         return true;
-    }
-}
-
-// Основний клас для запуску гри
-public class TicTacToeGame {
-    public static void main(String[] args) throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-
-        // Введення інформації про гравців
-        System.out.println("Введіть інформацію для першого гравця:");
-        Player player1 = new Player("", ' ');
-        player1.inputInfo();
-
-        System.out.println("Введіть інформацію для другого гравця:");
-        Player player2 = new Player("", ' ');
-        player2.inputInfo();
-
-        // Ігрове поле
-        TicTacToeBoard board = new TicTacToeBoard();
-        Player currentPlayer = player1;
-        boolean gameWon = false;
-
-        while (!board.isBoardFull()) {
-            board.displayBoard();
-            System.out.println(currentPlayer.getName() + " (" + currentPlayer.getSymbol() + ") робить хід.");
-
-            // Отримання ходу від поточного гравця
-            int[] move = currentPlayer.getMove();
-            boolean moveValid = board.updateBoard(move[0], move[1], currentPlayer.getSymbol());
-
-            if (!moveValid) {
-                System.out.println("Недійсний хід, спробуйте ще раз.");
-                continue;
-            }
-
-            // Перевірка на перемогу
-            if (board.checkWinner(currentPlayer.getSymbol())) {
-                board.displayBoard();
-                System.out.println("Вітаємо! " + currentPlayer.getName() + " виграв гру!");
-                gameWon = true;
-                break;
-            }
-
-            // Перемикання гравця
-            currentPlayer = (currentPlayer == player1) ? player2 : player1;
-        }
-
-        if (!gameWon) {
-            board.displayBoard();
-            System.out.println("Гра закінчилася нічиєю!");
-        }
     }
 }
