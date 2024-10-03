@@ -1,6 +1,7 @@
+
 public class Lab2 {
-    
-    public static void printTree(int levels) {
+
+    public void printTree(int levels) {
         for (int i = 1; i <= levels; i++) {
             for (int j = 1; j <= levels - i; j++) {
                 System.out.print(" ");
@@ -12,13 +13,13 @@ public class Lab2 {
         }
     }
 
-    public static void createAndPrintArray(int rows, int cols) {
+    public void createAndPrintArray(int rows, int cols) {
         int[][] array = new int[rows][cols];
-        int value = 1; 
+        int value = 1;
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 array[i][j] = value;
-                value += 3; 
+                value += 3;
                 System.out.print(array[i][j] + "\t");
             }
             System.out.println();
@@ -26,8 +27,12 @@ public class Lab2 {
     }
 
     public static void main(String[] args) {
-        printTree(3);
-        createAndPrintArray(3, 4);
+        int S = 4;
+        int H = 6;
+        int Tree = 6;
+        Lab2 Finish = new Lab2();
+        Finish.printTree(Tree);
+        Finish.createAndPrintArray(S, H);
     }
 
 }
