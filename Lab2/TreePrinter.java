@@ -1,3 +1,5 @@
+package Lab#2;
+ 
 public class TreePrinter {
     // Метод для виведення ялинки
     public void printTree(int levels) {
