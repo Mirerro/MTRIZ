@@ -16,9 +16,9 @@ class Player {
     // Метод для отримання ходу гравця
     public int[] getMove() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println(name + ", введіть рядок (0, 1 або 2): ");
+        System.out.println(name + ", введіть рядок (1, 2 або 3): ");
         int row = Integer.parseInt(reader.readLine());
-        System.out.println(name + ", введіть стовпчик (0, 1 або 2): ");
+        System.out.println(name + ", введіть стовпчик (1, 2 або 3): ");
         int col = Integer.parseInt(reader.readLine());
         return new int[]{row, col};
     }
