@@ -1,3 +1,4 @@
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -10,11 +11,11 @@ public class TicTacToeGame {
 
         // Введення інформації про гравців
         System.out.println("Введіть інформацію для першого гравця:");
-        Player player1 = new Player("", ' '); 
+        Player player1 = new Player("", ' ');
         player1.inputInfo();
 
         System.out.println("Введіть інформацію для другого гравця:");
-        Player player2 = new Player("", ' '); 
+        Player player2 = new Player("", ' ');
         player2.inputInfo();
 
         // Ігрове поле
@@ -54,6 +55,7 @@ public class TicTacToeGame {
     }
 }
 // Клас, що описує гравця
+
 class Player {
 
     private String name;
